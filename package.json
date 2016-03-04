@@ -1,6 +1,6 @@
 {
   "name": "aurelia-react-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Load React components directly from Aurelia views",
   "main": "dist/index.js",
   "directories": {
