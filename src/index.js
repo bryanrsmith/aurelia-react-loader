@@ -33,8 +33,9 @@ function createReactElement(component, name) {
 		noView(),
 		customElement(name),
 		bindable({
-			property: 'props',
-			propertyChanged: 'propsChanged',
+			name: 'props',
+			attribute: 'props',
+			changeHandler: 'propsChanged',
 			defaultBindingMode: 1,
 		})).on(createCustomElementClass(component));
 }
