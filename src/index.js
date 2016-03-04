@@ -34,37 +34,39 @@ function createReactElement(component, name) {
 		bindable({
 			property: 'props',
 			propertyChanged: 'propsChanged',
-			defaultBindingMode: 1
-		})).on(
-		class ReactComponent {
-			static inject() {
-				return [ Element ];
-			}
+			defaultBindingMode: 1,
+		})).on(createCustomElementClass(component));
+}
 
-			constructor(element) {
-				this.element = element;
-				this.component = null;
-			}
-
-			propsChanged() {
-				this.render();
-			}
-
-			bind() {
-				this.render();
-			}
-
-			unbind() {
-				ReactDOM.unmountComponentAtNode(this.element);
-				this.component = null;
-			}
-
-			render() {
-				this.component = ReactDOM.render(
-					React.createElement(component, this.props),
-					this.element
-				);
-			}
+function createCustomElementClass(component) {
+	return class ReactComponent {
+		static inject() {
+			return [ Element ];
 		}
-	);
+
+		constructor(element) {
+			this.element = element;
+			this.component = null;
+		}
+
+		propsChanged() {
+			this.render();
+		}
+
+		bind() {
+			this.render();
+		}
+
+		unbind() {
+			ReactDOM.unmountComponentAtNode(this.element);
+			this.component = null;
+		}
+
+		render() {
+			this.component = ReactDOM.render(
+				React.createElement(component, this.props),
+				this.element
+			);
+		}
+	};
 }
