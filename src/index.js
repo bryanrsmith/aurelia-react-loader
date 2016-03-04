@@ -20,6 +20,7 @@ function getReactCustomElements(module) {
 	for (const name in module) {
 		if (module.hasOwnProperty(name)) {
 			const elementName = hyphenate(name);
+			const component = module[name];
 			elements[elementName] = createReactElement(component, elementName);
 		}
 	}
