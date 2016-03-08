@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>aurelia-react-loader by bryanrsmith</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/bryanrsmith/aurelia-react-loader">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>aurelia-react-loader</h1>
+            <h2>Load React components directly from Aurelia view templates</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/bryanrsmith/aurelia-react-loader/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/bryanrsmith/aurelia-react-loader/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>
+<a id="aurelia-react-loader" class="anchor" href="#aurelia-react-loader" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>aurelia-react-loader</h1>
+
+<p>Load React components directly from Aurelia view templates.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>First install the loader plugin with jspm.</p>
+
+<pre><code>jspm install npm:aurelia-react-loader
+</code></pre>
+
+<p>Then register the plugin with Aurelia.</p>
+
+<div class="highlight highlight-source-diff"><pre>export function configure(aurelia) {
+  aurelia.use
+    .standardConfiguration()
+    .developmentLogging()
+<span class="pl-mi1">+   .plugin('aurelia-react-loader');</span>
+
+  aurelia.start().then(() =&gt; aurelia.setRoot());
+}</pre></div>
+
+<h1>
+<a id="use" class="anchor" href="#use" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use</h1>
+
+<p>Import react components into Aurelia views just like you import a custom element. Just specify the <code>!react-component</code> loader after the module name.</p>
+
+<p>In <code>aurelia-view.html</code>:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">template</span>&gt;
+  &lt;<span class="pl-ent">require</span> <span class="pl-e">from</span>=<span class="pl-s"><span class="pl-pds">"</span>my-react-component.js!react-component<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">require</span>&gt;
+
+  &lt;<span class="pl-ent">input</span> <span class="pl-e">ref</span>=<span class="pl-s"><span class="pl-pds">"</span>in<span class="pl-pds">"</span></span> /&gt;
+  &lt;<span class="pl-ent">my</span><span class="pl-e">-react-component</span> <span class="pl-e">props</span>.<span class="pl-e">bind</span>=<span class="pl-s"><span class="pl-pds">"</span>{ name: in.value, onClick: submit }<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">my</span><span class="pl-e">-react-component</span>&gt;
+&lt;/<span class="pl-ent">template</span>&gt;</pre></div>
+
+<p>In <code>my-react-component.js</code>:</p>
+
+<div class="highlight highlight-source-js-jsx"><pre><span class="pl-k">import</span><span class="pl-smi"> React</span><span class="pl-k"> from</span> <span class="pl-s"><span class="pl-pds">'</span>react<span class="pl-pds">'</span></span>;
+
+<span class="pl-k">export</span> <span class="pl-k">class</span> <span class="pl-en">MyReactComponent</span> <span class="pl-k">extends</span> <span class="pl-en">React</span><span class="pl-k">.</span><span class="pl-smi">Component</span> {
+  <span class="pl-en">render</span>() {
+<span class="pl-k">    let</span> {<span class="pl-smi"> name</span>,<span class="pl-smi"> onClick</span> }<span class="pl-k"> =</span><span class="pl-v"> this</span><span class="pl-k">.</span><span class="pl-smi">props</span>;
+<span class="pl-k">    return</span> (&lt;<span class="pl-ent">button</span> <span class="pl-e">onClick</span><span class="pl-k">=</span><span class="pl-pse">{</span><span class="pl-s1"><span class="pl-smi">onClick</span></span><span class="pl-pse">}</span>&gt;Hello, <span class="pl-pse">{</span><span class="pl-s1"><span class="pl-smi">name</span></span><span class="pl-pse">}</span>&lt;/<span class="pl-ent">button</span>&gt;);
+  }
+}</pre></div>
+
+<p>A few things to note:</p>
+
+<ul>
+<li>React component names are converted to kebab case for safe use in HTML. <code>&lt;MyReactComponent foo={bar} /&gt;</code> in jsx becomes <code>&lt;my-react-component props.bind="{foo:bar}"&gt;&lt;/my-react-component&gt;</code> in an HTML Aurelia template.</li>
+<li>Pass props to the React component with the <code>props</code> binding. The component will be re-rendered when the binding changes.</li>
+<li>If you need to reference the React component directly it is stored in the <code>component</code> property of the custom element's view model. You can use a <code>ref</code> binding to access it.</li>
+<li>All functions exported from the required module are assumed to be React components, and wrapped with custom elements. Both stateful and stateless React components are supported.</li>
+</ul>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/bryanrsmith">bryanrsmith</a> can be found on <a href="https://github.com/bryanrsmith/aurelia-react-loader">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
