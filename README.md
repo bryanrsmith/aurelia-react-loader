@@ -21,7 +21,7 @@ export function configure(aurelia) {
 }
 ```
 
-# Use
+## Use
 
 Import react components into Aurelia views just like you import a custom element. Just specify the `!react-component` loader after the module name.
 
