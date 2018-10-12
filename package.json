@@ -23,17 +23,24 @@
   },
   "keywords": [
     "aurelia",
-    "react"
+    "react",
+    "preact"
   ],
-  "author": "Bryan R Smith <BryanRSmith@gmail.com>",
+  "contributors": [
+    {
+      "name": "Bryan R Smith",
+      "email": "BryanRSmith@gmail.com"
+    },
+    {
+      "name": "Thomas Schlage",
+      "email": "t.schlage@gmx.net"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bryanrsmith/aurelia-react-loader/issues"
   },
   "homepage": "https://github.com/bryanrsmith/aurelia-react-loader#readme",
-  "dependencies": {
-    "lodash.kebabcase": "4.0.0"
-  },
   "peerDependencies": {
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
@@ -44,6 +51,7 @@
     "babel": "6.5.2",
     "babel-cli": "6.6.4",
     "babel-preset-es2015": "6.6.0",
+    "babel-preset-stage-1": "^6.24.1",
     "release-script": "1.0.2"
   }
 }
